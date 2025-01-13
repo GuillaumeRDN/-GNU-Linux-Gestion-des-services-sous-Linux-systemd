@@ -1,0 +1,36 @@
+while true; do
+  echo "Hello World ! Il est maintenant $(date)" >> /tmp/mon_service.log
+  sleep 60
+done
+
+# on va rendre le script executable via la commande :
+
+chmod +x mon_script.sh
+
+# on créer l'unité de service mon_service.service présent dans le répertoire /etc/systemd/system/
+
+Description=Mon Service
+After=network.target
+
+[Service]
+ExecStart=/chemin/vers/mon_script.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+# on remplace le /chemin/vers/mon_script.sh par le chemin absolu du script.
+
+# on recharche la config systemd via la commande :
+
+sudo systemctl daemon-reload
+
+# on réactive le service + démmarage automatique
+
+sudo systemctl enable mon_service
+
+sudo systemctl start mon_service
+
+# on peut faire une redemarage de la machine + vérifier le service
+
+sudo systemctl status mon_service

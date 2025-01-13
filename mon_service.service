@@ -1,0 +1,10 @@
+[Unit]
+Description=Mon Service
+After=network.target
+
+[Service]
+ExecStart=/chemin/vers/mon_script.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
